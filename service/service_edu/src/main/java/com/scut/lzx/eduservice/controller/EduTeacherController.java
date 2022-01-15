@@ -7,6 +7,7 @@ import com.scut.lzx.commonutils.R;
 import com.scut.lzx.eduservice.entity.EduTeacher;
 import com.scut.lzx.eduservice.entity.vo.TeacherQueryVo;
 import com.scut.lzx.eduservice.service.EduTeacherService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class EduTeacherController {
     @PostMapping("pageTeacherCondition")
     //RequestBody 帮我们把json数据封装到对象中 必须使用post提交
     public R pageTeacherCondition(
-            @ApiParam(name = "条件查询的封装类") @RequestBody(required = false) TeacherQueryVo teacherQueryVo) {
+            @ApiParam(name = "条件查询的封装类") @RequestBody TeacherQueryVo teacherQueryVo) {
         Page<EduTeacher> page = new Page<>(teacherQueryVo.getCurrent(), teacherQueryVo.getLimit());
 
         QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
@@ -79,5 +80,26 @@ public class EduTeacherController {
 
         eduTeacherService.page(page, wrapper);
         return R.ok().data("total", page.getTotal()).data("rows", page.getRecords());
+    }
+
+    @ApiOperation(value = "添加讲师")
+    @PostMapping("addTeacher")
+    public R addTeacher(@ApiParam(name = "讲师信息") @RequestBody EduTeacher eduTeacher) {
+        boolean save = eduTeacherService.save(eduTeacher);
+        return save ? R.ok() : R.error();
+    }
+
+    @ApiOperation(value = "根据id获取teacher")
+    @GetMapping("getTeacher/{id}")
+    public R getTeacher(@PathVariable String id) {
+        EduTeacher byId = eduTeacherService.getById(id);
+        return R.ok().data("teacher", byId);
+    }
+
+    @ApiOperation(value = "修改讲师信息")
+    @PostMapping("updateTeacher")
+    public R updateTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean b = eduTeacherService.updateById(eduTeacher);
+        return b ? R.ok() : R.error();
     }
 }
