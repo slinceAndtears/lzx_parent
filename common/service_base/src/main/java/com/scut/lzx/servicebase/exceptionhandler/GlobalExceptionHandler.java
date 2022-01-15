@@ -14,4 +14,11 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return R.error().message("执行了异常处理");
     }
+
+    @ExceptionHandler(MyException.class)
+    @ResponseBody
+    public R error(MyException e) {
+        e.printStackTrace();
+        return R.error().code(e.getCode()).message(e.getMsg());
+    }
 }
