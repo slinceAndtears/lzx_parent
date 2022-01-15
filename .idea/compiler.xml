@@ -7,20 +7,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="service_edu" />
         <module name="service_vod" />
+        <module name="service_edu" />
+        <module name="service_base" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="lzx_parent" target="11" />
-      <module name="service" target="11" />
-      <module name="service_edu" target="11" />
-      <module name="service_vod" target="11" />
+      <module name="common" target="1.8" />
+      <module name="lzx_parent" target="1.8" />
+      <module name="service" target="1.8" />
+      <module name="service_base" target="1.8" />
+      <module name="service_edu" target="1.8" />
+      <module name="service_vod" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common" options="-parameters" />
       <module name="lzx_parent" options="-parameters" />
+      <module name="service_base" options="-parameters" />
       <module name="service_edu" options="-parameters" />
       <module name="service_vod" options="-parameters" />
     </option>
