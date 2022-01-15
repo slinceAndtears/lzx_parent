@@ -1,6 +1,7 @@
 package com.scut.lzx.eduservice.controller;
 
 
+import com.scut.lzx.commonutils.R;
 import com.scut.lzx.eduservice.entity.EduTeacher;
 import com.scut.lzx.eduservice.service.EduTeacherService;
 import io.swagger.annotations.ApiOperation;
@@ -26,14 +27,16 @@ public class EduTeacherController {
 
     @ApiOperation(value = "获取所有讲师信息")
     @GetMapping("findAll")
-    public List<EduTeacher> findAllTeacher() {
-        return eduTeacherService.list(null);
+    public R findAllTeacher() {
+        List<EduTeacher> list = eduTeacherService.list(null);
+        return R.ok().data("items", list);
     }
 
     @ApiOperation(value = "根据id删除讲师信息")
     @DeleteMapping("deleteById/{id}")
-    public boolean deleteTeacher(@ApiParam(name = "id", value = "讲师ID", required = true) @PathVariable String id) {
-        return eduTeacherService.removeById(id);
+    public R deleteTeacher(@ApiParam(name = "id", value = "讲师ID", required = true) @PathVariable String id) {
+        boolean b = eduTeacherService.removeById(id);
+        return b ? R.ok() : R.error();
     }
 }
 
