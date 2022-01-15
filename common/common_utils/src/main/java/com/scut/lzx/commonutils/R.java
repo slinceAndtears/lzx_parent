@@ -57,4 +57,9 @@ public class R {
         this.getData().put(column, data);
         return this;
     }
+
+    public R data(Map<String, Object> data) {
+        this.setData(data);
+        return this;
+    }
 }
