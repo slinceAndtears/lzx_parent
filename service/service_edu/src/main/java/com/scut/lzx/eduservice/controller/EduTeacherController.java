@@ -7,9 +7,10 @@ import com.scut.lzx.commonutils.R;
 import com.scut.lzx.eduservice.entity.EduTeacher;
 import com.scut.lzx.eduservice.entity.vo.TeacherQueryVo;
 import com.scut.lzx.eduservice.service.EduTeacherService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController//用于返回json数据
 @RequestMapping("/eduservice/teacher")
 public class EduTeacherController {
+    private static final Logger logger = LoggerFactory.getLogger(EduTeacherController.class);
     @Autowired
     private EduTeacherService eduTeacherService;
 
