@@ -27,6 +27,7 @@ import java.util.List;
  */
 @RestController//用于返回json数据
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
     private static final Logger logger = LoggerFactory.getLogger(EduTeacherController.class);
     @Autowired
