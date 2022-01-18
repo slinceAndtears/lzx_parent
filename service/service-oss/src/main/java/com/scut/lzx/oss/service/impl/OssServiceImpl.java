@@ -3,6 +3,7 @@ package com.scut.lzx.oss.service.impl;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.scut.lzx.oss.service.OssService;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 @Service
 public class OssServiceImpl implements OssService {
@@ -29,11 +31,14 @@ public class OssServiceImpl implements OssService {
     public String uploadFileAvatar(MultipartFile file) {
         String url = "https://";
         OSS client = new OSSClientBuilder().build(endPoint, keyId, keySecret);
+        String fileName = UUID.randomUUID().toString().replaceAll("-", "") +
+                file.getOriginalFilename();
+        String dataPath = new DateTime().toString("yyyy/MM/dd") + "/" + fileName;
         try {
             InputStream stream = file.getInputStream();
-            client.putObject(bucketName, file.getOriginalFilename(), stream);
-            logger.info("upload file {} to oss success", file);
-            url = url + bucketName + "." + endPoint + "/" + file.getOriginalFilename();
+            client.putObject(bucketName, dataPath, stream);
+            url = url + bucketName + "." + endPoint + "/" + dataPath;
+            logger.info("upload file {} to oss success", url);
         } catch (IOException e) {
             logger.error("get inputStream from file failure", e);
             e.printStackTrace();
