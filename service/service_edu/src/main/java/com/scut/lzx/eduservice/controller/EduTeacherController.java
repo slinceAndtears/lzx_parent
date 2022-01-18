@@ -57,11 +57,11 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "根据条件分页查询")
-    @PostMapping("pageTeacherCondition")
+    @PostMapping("pageTeacherCondition/{current}/{limit}")
     //RequestBody 帮我们把json数据封装到对象中 必须使用post提交
-    public R pageTeacherCondition(
+    public R pageTeacherCondition( @PathVariable long current, @PathVariable long limit,
             @ApiParam(name = "条件查询的封装类") @RequestBody TeacherQueryVo teacherQueryVo) {
-        Page<EduTeacher> page = new Page<>(teacherQueryVo.getCurrent(), teacherQueryVo.getLimit());
+        Page<EduTeacher> page = new Page<>(current, limit);
 
         QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
         String name = teacherQueryVo.getName();
