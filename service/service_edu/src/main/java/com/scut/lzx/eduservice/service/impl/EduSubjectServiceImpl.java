@@ -1,6 +1,7 @@
 package com.scut.lzx.eduservice.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.scut.lzx.eduservice.entity.EduSubject;
 import com.scut.lzx.eduservice.entity.excel.SubjectData;
 import com.scut.lzx.eduservice.listener.SubjectExcelListener;
@@ -32,7 +33,7 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
     public boolean saveSubject(MultipartFile file) {
         try {
             InputStream stream = file.getInputStream();
-            EasyExcel.read(stream, SubjectData.class, new SubjectExcelListener()).sheet().doRead();
+            EasyExcel.read(stream, SubjectData.class, new SubjectExcelListener(this)).sheet().doRead();
             logger.info("upload the excel file {} success", file);
             return true;
         } catch (IOException e) {
@@ -40,6 +41,23 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
             logger.error("upload the excel file {} failure", file);
             return false;
         }
+    }
+
+    //判断一级分类不能重复
+    @Override
+    public EduSubject existOneSubject(EduSubjectService eduSubjectService, String name) {
+        QueryWrapper<EduSubject> wrapper = new QueryWrapper<>();
+        wrapper.eq("title", name);
+        wrapper.eq("parent_id", "0");
+        return eduSubjectService.getOne(wrapper);
+    }
+
+    @Override
+    public EduSubject existTwoSubject(EduSubjectService eduSubjectService, String name, String pid) {
+        QueryWrapper<EduSubject> wrapper = new QueryWrapper<>();
+        wrapper.eq("title", name);
+        wrapper.eq("parent_id", pid);
+        return eduSubjectService.getOne(wrapper);
     }
 
 }

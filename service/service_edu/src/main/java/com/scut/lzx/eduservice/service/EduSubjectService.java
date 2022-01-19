@@ -15,4 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface EduSubjectService extends IService<EduSubject> {
 
     boolean saveSubject(MultipartFile file);
+
+    EduSubject existOneSubject(EduSubjectService eduSubjectService, String name);
+
+    EduSubject existTwoSubject(EduSubjectService eduSubjectService, String name, String pid);
 }
