@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/eduservice/user")
 @CrossOrigin
 public class EduLoginController {
-    private static final Logger logger = LoggerFactory.getLogger(EduTeacherController.class);
+    private static final Logger logger = LoggerFactory.getLogger(EduLoginController.class);
 
     @PostMapping("login")
     public R login() {
@@ -23,6 +23,6 @@ public class EduLoginController {
         return R.ok()
                 .data("roles", "[admin]")
                 .data("name", "admin")
-                .data("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+                .data("avatar", "https://lizixing-edu.oss-cn-guangzhou.aliyuncs.com/2020/11/14/OIP-C.jpg");
     }
 }

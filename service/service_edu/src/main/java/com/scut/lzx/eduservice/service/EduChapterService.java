@@ -2,6 +2,10 @@ package com.scut.lzx.eduservice.service;
 
 import com.scut.lzx.eduservice.entity.EduChapter;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.scut.lzx.eduservice.entity.chapter.ChapterVo;
+import com.scut.lzx.eduservice.entity.vo.CourseInfoVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduChapterService extends IService<EduChapter> {
 
+    List<ChapterVo> getChapterVideoList(String courseId);
+
+    boolean addChapter(EduChapter eduChapter);
+
+    EduChapter getChapterById(String chapterId);
+
+    boolean updateChapter(EduChapter eduChapter);
+
+    boolean deleteChapterById(String chapterId);
+
+    void removeByCourseId(String id);
 }
