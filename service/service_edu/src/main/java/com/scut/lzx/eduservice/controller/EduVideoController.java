@@ -2,6 +2,7 @@ package com.scut.lzx.eduservice.controller;
 
 
 import com.scut.lzx.commonutils.R;
+import com.scut.lzx.eduservice.client.VodClient;
 import com.scut.lzx.eduservice.entity.EduVideo;
 import com.scut.lzx.eduservice.service.EduVideoService;
 import io.swagger.annotations.ApiOperation;

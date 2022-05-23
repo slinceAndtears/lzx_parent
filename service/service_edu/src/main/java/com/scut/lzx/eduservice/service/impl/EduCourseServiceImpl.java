@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,7 +68,9 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         EduCourseDescription byId = eduCourseDescriptionService.getById(courseId);
         CourseInfoVo result = new CourseInfoVo();
         BeanUtils.copyProperties(eduCourse, result);
-        BeanUtils.copyProperties(byId, result);
+        if (byId != null) {
+            BeanUtils.copyProperties(byId, result);
+        }
         logger.info("get courseInfo {} by courseId {}", result, courseId);
         return result;
     }
@@ -122,4 +125,16 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         logger.info("delete course by id {}, delete rows  {}", id, i);
         return true;
     }
+
+    @Cacheable(value = "course",key = "'selectCourseList'")
+    @Override
+    public List<EduCourse> topEightCourse() {
+        QueryWrapper<EduCourse> courseQueryWrapper = new QueryWrapper<>();
+        courseQueryWrapper.orderByDesc("id");
+        courseQueryWrapper.last("limit 8");
+        List<EduCourse> courseList = baseMapper.selectList(courseQueryWrapper);
+        logger.info("select course list {}", courseList);
+        return courseList;
+    }
+
 }

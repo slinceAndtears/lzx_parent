@@ -40,8 +40,7 @@ public class TestVod {
         System.out.println(response.getVideoBase().getTitle());
     }
 
-    @Test
-    public void getAuth() throws com.aliyuncs.exceptions.ClientException {
+    public static void getAuth() throws com.aliyuncs.exceptions.ClientException {
         DefaultAcsClient client = initVodClient(accessKeyId, accessKeySecret);
         GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
         request.setVideoId(id);
@@ -49,8 +48,8 @@ public class TestVod {
         System.out.println(acsResponse.getPlayAuth());
     }
 
-    @Test
-    public void uploadVideo() {
+
+    public static void uploadVideo() {
         String fileName = "src/main/resources/rookie-6.mp4";
         //File f=new File(fileName);
         //System.out.println(f.exists());
@@ -66,9 +65,7 @@ public class TestVod {
     }
 
     @Test
-    public void readFile(){
-        String fileName = "C://Users//dell//Desktop//video//rookie-1.mp4";
-        File f=new File(fileName);
-        System.out.println(f.exists());
+    public void test(){
+
     }
 }

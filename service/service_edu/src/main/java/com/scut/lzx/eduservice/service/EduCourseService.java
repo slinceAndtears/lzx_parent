@@ -1,5 +1,6 @@
 package com.scut.lzx.eduservice.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.scut.lzx.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.scut.lzx.eduservice.entity.vo.CourseInfoVo;
@@ -30,4 +31,6 @@ public interface EduCourseService extends IService<EduCourse> {
     List<EduCourse> getCourseList();
 
     boolean deleteCourse(String id);
+
+    List<EduCourse> topEightCourse();
 }
